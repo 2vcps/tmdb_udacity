@@ -12,8 +12,9 @@
 <a id='intro'></a>
 ## Introduction
 
-We are going to explore the Internet Movie Database. Some questions I would like to find it if the data allows is the ability to see what cast members are corealated to the most profitable movies.
-Second, without see the results in would be interesting to see if the profits and popularity have a relationship of some kind.
+> **Tip**: In this section of the report, provide a brief introduction to the dataset you've selected for analysis. At the end of this section, describe the questions that you plan on exploring over the course of the report. Try to build your report around the analysis of at least one dependent variable and three independent variables.
+>
+> If you haven't yet selected and downloaded your data, make sure you do that first before coming back here. If you're not sure what questions to ask right now, then make sure you familiarize yourself with the variables and the dataset context for ideas of what to explore.
 
 
 ```python
@@ -203,10 +204,15 @@ movie_df.head()
 <a id='wrangling'></a>
 ## Data Wrangling
 
+> **Tip**: In this section of the report, you will load in the data, check for cleanliness, and then trim and clean your dataset for analysis. Make sure that you document your steps carefully and justify your cleaning decisions.
+
 ### General Properties
 
 
 ```python
+# Load your data and print out a few lines. Perform operations to inspect data
+#   types and look for instances of missing or possibly errant data.
+
 #missing data - movie_df.info()
 #duplicates - 
 #incorrect types - 
@@ -214,104 +220,34 @@ movie_df.info()
 movie_df.duplicated()
 ```
 
-    <class 'pandas.core.frame.DataFrame'>
-    RangeIndex: 10866 entries, 0 to 10865
-    Data columns (total 21 columns):
-    id                      10866 non-null int64
-    imdb_id                 10856 non-null object
-    popularity              10866 non-null float64
-    budget                  10866 non-null int64
-    revenue                 10866 non-null int64
-    original_title          10866 non-null object
-    cast                    10790 non-null object
-    homepage                2936 non-null object
-    director                10822 non-null object
-    tagline                 8042 non-null object
-    keywords                9373 non-null object
-    overview                10862 non-null object
-    runtime                 10866 non-null int64
-    genres                  10843 non-null object
-    production_companies    9836 non-null object
-    release_date            10866 non-null object
-    vote_count              10866 non-null int64
-    vote_average            10866 non-null float64
-    release_year            10866 non-null int64
-    budget_adj              10866 non-null float64
-    revenue_adj             10866 non-null float64
-    dtypes: float64(4), int64(6), object(11)
-    memory usage: 1.7+ MB
+
+    
+
+    AttributeErrorTraceback (most recent call last)
+
+    <ipython-input-38-2c9669645d3a> in <module>()
+          5 #duplicates -
+          6 #incorrect types -
+    ----> 7 movie_df.info()
+          8 movie_df.duplicated()
 
 
+    /opt/conda/envs/DataAnalyticsClass/lib/python3.6/site-packages/pandas/core/generic.py in __getattr__(self, name)
+       3612             if name in self._info_axis:
+       3613                 return self[name]
+    -> 3614             return object.__getattribute__(self, name)
+       3615 
+       3616     def __setattr__(self, name, value):
 
 
-
-    0        False
-    1        False
-    2        False
-    3        False
-    4        False
-    5        False
-    6        False
-    7        False
-    8        False
-    9        False
-    10       False
-    11       False
-    12       False
-    13       False
-    14       False
-    15       False
-    16       False
-    17       False
-    18       False
-    19       False
-    20       False
-    21       False
-    22       False
-    23       False
-    24       False
-    25       False
-    26       False
-    27       False
-    28       False
-    29       False
-             ...  
-    10836    False
-    10837    False
-    10838    False
-    10839    False
-    10840    False
-    10841    False
-    10842    False
-    10843    False
-    10844    False
-    10845    False
-    10846    False
-    10847    False
-    10848    False
-    10849    False
-    10850    False
-    10851    False
-    10852    False
-    10853    False
-    10854    False
-    10855    False
-    10856    False
-    10857    False
-    10858    False
-    10859    False
-    10860    False
-    10861    False
-    10862    False
-    10863    False
-    10864    False
-    10865    False
-    Length: 10866, dtype: bool
+    AttributeError: 'Series' object has no attribute 'info'
 
 
+> **Tip**: You should _not_ perform too many operations in each cell. Create cells freely to explore your data. One option that you can take with this project is to do a lot of explorations in an initial notebook. These don't have to be organized, but make sure you use enough comments to understand the purpose of each code cell. Then, after you're done with your analysis, create a duplicate notebook where you will trim the excess and organize your steps so that you have a flowing, cohesive report.
 
+> **Tip**: Make sure that you keep your reader informed on the steps that you are taking in your investigation. Follow every code cell, or every set of related code cells, with a markdown cell to describe to the reader what was found in the preceding cell(s). Try to make it so that the reader can then understand what they will be seeing in the following cell(s).
 
-### Data Cleaning
+### Data Cleaning (Replace this with more specific notes!)
 
 
 ```python
@@ -328,8 +264,8 @@ fixed_cast_df = pd.read_csv('cast.csv')
 
 
 ```python
-#df_prof = clean_movie_df['revenue'] - clean_movie_df['budget']
-#df_prof.to_csv('profit.csv', index=False,header=['profit'])
+df_prof = clean_movie_df['revenue'] - clean_movie_df['budget']
+df_prof.to_csv('profit.csv', index=False,header=['profit'])
 
 ```
 
@@ -337,8 +273,8 @@ fixed_cast_df = pd.read_csv('cast.csv')
 ```python
 #adjusted
 
-#df_adj= clean_movie_df['revenue_adj'] - clean_movie_df['budget_adj']
-#df_adj.to_csv('profit_adj.csv', index=False,header=['profit_adj'])
+df_adj= clean_movie_df['revenue_adj'] - clean_movie_df['budget_adj']
+df_adj.to_csv('profit_adj.csv', index=False,header=['profit_adj'])
 ```
 
 
@@ -2100,7 +2036,7 @@ df_top100.info()
     profit                  100 non-null int64
     profit_adj              100 non-null float64
     dtypes: float64(5), int64(7), object(16)
-    memory usage: 22.7+ KB
+    memory usage: 27.7+ KB
 
 
 
@@ -3184,15 +3120,18 @@ top15.plot.pie(figsize=(20,20), y='MillionsAsFloat');
 
 ```python
 plt.rcdefaults()
-bar_top15 = pd.DataFrame(top15.reset_index())
 
+ax = plt.subplots
 y_pos = bar_top15['actor']
 x_profit = bar_top15['MillionsAsFloat']
 
 plt.barh(y_pos, x_profit, align='center', color='orange')
+plt.yticks(y_pos)
+
+#ax.set_yticklabels(y_pos)
 plt.xlabel('Profits in Millions')
 plt.title('Who should you have in your next blockbuster?')
-
+plt.figure()
 plt.show()
 ```
 
@@ -3201,13 +3140,7 @@ plt.show()
 
 
 
-```python
-#or a panda plot
-bar_top15.plot.barh(x='actor', y='MillionsAsFloat', legend=False);
-```
-
-
-![png](output_23_0.png)
+    <matplotlib.figure.Figure at 0x7f53687ee4a8>
 
 
 # Conclusion for Actor and Profitability
@@ -3266,7 +3199,7 @@ pd.plotting.scatter_matrix(clean_movie_df.iloc[:,[2,3,15,16,17,25,27]], alpha=0.
 ```
 
 
-![png](output_27_0.png)
+![png](output_26_0.png)
 
 
 I would like to see the profitability and popularity a little closer.
@@ -3277,7 +3210,7 @@ clean_movie_df.plot.scatter(x='profit_adj', y='popularity');
 ```
 
 
-![png](output_29_0.png)
+![png](output_28_0.png)
 
 
 We see the outlying most profitable films are not ranked above 10 or 11, while the highest ranked movies are not the highest in profits. We can tell there there are NO films ranked above 5 that actually lost money. So if you make a badly rated/ranked film you will have the best chance of losing money. Good movies don't lose money, but some are close.
@@ -3291,7 +3224,7 @@ clean_movie_df.plot.scatter(x='release_year', y='popularity');
 ```
 
 
-![png](output_31_0.png)
+![png](output_30_0.png)
 
 
 
@@ -3300,7 +3233,7 @@ clean_movie_df.plot.scatter(x='vote_count', y='popularity');
 ```
 
 
-![png](output_32_0.png)
+![png](output_31_0.png)
 
 
 
@@ -3309,7 +3242,7 @@ clean_movie_df.plot.scatter(y='vote_count', x='release_year');
 ```
 
 
-![png](output_33_0.png)
+![png](output_32_0.png)
 
 
 ### What did I learn here?
@@ -3325,20 +3258,24 @@ plt.rcdefaults()
 
 y_pos = pop_top25['original_title']
 x_profit = pop_top25['popularity']
-
-
+y_release_year = pop_top25['release_year']
+y_ticks = "{0} {1}".format(y_pos, y_release_year)
 plt.barh(y_pos, x_profit, align='center', color='green')
-
+plt.yticks(y_pos)
 
 plt.xlabel('Popularity Contest')
 plt.title('Recent Movies get better ratings')
-
-plt.show();
+plt.figure()
+plt.show()
 print(pop_top25.iloc[:,[5,18]])
 ```
 
 
-![png](output_35_0.png)
+![png](output_34_0.png)
+
+
+
+    <matplotlib.figure.Figure at 0x7f5366a2fd68>
 
 
                                              original_title  release_year
@@ -3370,7 +3307,7 @@ print(pop_top25.iloc[:,[5,18]])
 
 
 ### Hunch confirmed
-As I look at the top ranked movies there is very few (only 3 movies from before 2000. It would seem movies release before the proliferation of the internet are at a disadvantage. Another thought is too since this data is a little old, all of the box office receipts are not counted for the most recent movies. 
+As I look at the top ranked movies there is very few (only 3 movies from before 2000. It would seem movies release before the proliferation of the internet are at a disadvantage. 
 
 <a id='conclusions'></a>
 ##  Final Conclusions
