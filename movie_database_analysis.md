@@ -12,9 +12,8 @@
 <a id='intro'></a>
 ## Introduction
 
-> **Tip**: In this section of the report, provide a brief introduction to the dataset you've selected for analysis. At the end of this section, describe the questions that you plan on exploring over the course of the report. Try to build your report around the analysis of at least one dependent variable and three independent variables.
->
-> If you haven't yet selected and downloaded your data, make sure you do that first before coming back here. If you're not sure what questions to ask right now, then make sure you familiarize yourself with the variables and the dataset context for ideas of what to explore.
+We are going to explore the Internet Movie Database. Some questions I would like to find it if the data allows is the ability to see what cast members are corealated to the most profitable movies.
+Second, without see the results in would be interesting to see if the profits and popularity have a relationship of some kind.
 
 
 ```python
@@ -33,17 +32,17 @@ movie_df.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -204,15 +203,10 @@ movie_df.head()
 <a id='wrangling'></a>
 ## Data Wrangling
 
-> **Tip**: In this section of the report, you will load in the data, check for cleanliness, and then trim and clean your dataset for analysis. Make sure that you document your steps carefully and justify your cleaning decisions.
-
 ### General Properties
 
 
 ```python
-# Load your data and print out a few lines. Perform operations to inspect data
-#   types and look for instances of missing or possibly errant data.
-
 #missing data - movie_df.info()
 #duplicates - 
 #incorrect types - 
@@ -220,34 +214,104 @@ movie_df.info()
 movie_df.duplicated()
 ```
 
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 10866 entries, 0 to 10865
+    Data columns (total 21 columns):
+    id                      10866 non-null int64
+    imdb_id                 10856 non-null object
+    popularity              10866 non-null float64
+    budget                  10866 non-null int64
+    revenue                 10866 non-null int64
+    original_title          10866 non-null object
+    cast                    10790 non-null object
+    homepage                2936 non-null object
+    director                10822 non-null object
+    tagline                 8042 non-null object
+    keywords                9373 non-null object
+    overview                10862 non-null object
+    runtime                 10866 non-null int64
+    genres                  10843 non-null object
+    production_companies    9836 non-null object
+    release_date            10866 non-null object
+    vote_count              10866 non-null int64
+    vote_average            10866 non-null float64
+    release_year            10866 non-null int64
+    budget_adj              10866 non-null float64
+    revenue_adj             10866 non-null float64
+    dtypes: float64(4), int64(6), object(11)
+    memory usage: 1.7+ MB
 
-    
-
-    AttributeErrorTraceback (most recent call last)
-
-    <ipython-input-38-2c9669645d3a> in <module>()
-          5 #duplicates -
-          6 #incorrect types -
-    ----> 7 movie_df.info()
-          8 movie_df.duplicated()
 
 
-    /opt/conda/envs/DataAnalyticsClass/lib/python3.6/site-packages/pandas/core/generic.py in __getattr__(self, name)
-       3612             if name in self._info_axis:
-       3613                 return self[name]
-    -> 3614             return object.__getattribute__(self, name)
-       3615 
-       3616     def __setattr__(self, name, value):
 
 
-    AttributeError: 'Series' object has no attribute 'info'
+    0        False
+    1        False
+    2        False
+    3        False
+    4        False
+    5        False
+    6        False
+    7        False
+    8        False
+    9        False
+    10       False
+    11       False
+    12       False
+    13       False
+    14       False
+    15       False
+    16       False
+    17       False
+    18       False
+    19       False
+    20       False
+    21       False
+    22       False
+    23       False
+    24       False
+    25       False
+    26       False
+    27       False
+    28       False
+    29       False
+             ...  
+    10836    False
+    10837    False
+    10838    False
+    10839    False
+    10840    False
+    10841    False
+    10842    False
+    10843    False
+    10844    False
+    10845    False
+    10846    False
+    10847    False
+    10848    False
+    10849    False
+    10850    False
+    10851    False
+    10852    False
+    10853    False
+    10854    False
+    10855    False
+    10856    False
+    10857    False
+    10858    False
+    10859    False
+    10860    False
+    10861    False
+    10862    False
+    10863    False
+    10864    False
+    10865    False
+    Length: 10866, dtype: bool
 
 
-> **Tip**: You should _not_ perform too many operations in each cell. Create cells freely to explore your data. One option that you can take with this project is to do a lot of explorations in an initial notebook. These don't have to be organized, but make sure you use enough comments to understand the purpose of each code cell. Then, after you're done with your analysis, create a duplicate notebook where you will trim the excess and organize your steps so that you have a flowing, cohesive report.
 
-> **Tip**: Make sure that you keep your reader informed on the steps that you are taking in your investigation. Follow every code cell, or every set of related code cells, with a markdown cell to describe to the reader what was found in the preceding cell(s). Try to make it so that the reader can then understand what they will be seeing in the following cell(s).
 
-### Data Cleaning (Replace this with more specific notes!)
+### Data Cleaning
 
 
 ```python
@@ -264,8 +328,8 @@ fixed_cast_df = pd.read_csv('cast.csv')
 
 
 ```python
-df_prof = clean_movie_df['revenue'] - clean_movie_df['budget']
-df_prof.to_csv('profit.csv', index=False,header=['profit'])
+#df_prof = clean_movie_df['revenue'] - clean_movie_df['budget']
+#df_prof.to_csv('profit.csv', index=False,header=['profit'])
 
 ```
 
@@ -273,8 +337,8 @@ df_prof.to_csv('profit.csv', index=False,header=['profit'])
 ```python
 #adjusted
 
-df_adj= clean_movie_df['revenue_adj'] - clean_movie_df['budget_adj']
-df_adj.to_csv('profit_adj.csv', index=False,header=['profit_adj'])
+#df_adj= clean_movie_df['revenue_adj'] - clean_movie_df['budget_adj']
+#df_adj.to_csv('profit_adj.csv', index=False,header=['profit_adj'])
 ```
 
 
@@ -290,17 +354,17 @@ clean_movie_df.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -469,17 +533,17 @@ clean_movie_df.sort_values(['profit_adj'], ascending=False)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -2036,7 +2100,7 @@ df_top100.info()
     profit                  100 non-null int64
     profit_adj              100 non-null float64
     dtypes: float64(5), int64(7), object(16)
-    memory usage: 27.7+ KB
+    memory usage: 22.7+ KB
 
 
 
@@ -2051,17 +2115,17 @@ df_top100_cleaner.sort_values(by='profit_adj',ascending=False)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -2735,17 +2799,17 @@ total_readable.sort_values(by='profit_adj', ascending=False)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -3096,51 +3160,68 @@ print(total_readable.describe())
 
 ### Profitability vs Cast - Which cast members have the most Profitable movies? 
 
+In the plot we hope to see if there are actors that generally act in the most profitable movies?
+
 
 ```python
-pd.plotting.scatter_matrix(total_readable, alpha=0.2, figsize=(10,10), diagonal='kde');
+#This plot is unneeded. Don't render
+##pd.plotting.scatter_matrix
+##pd.plotting.scatter_matrix(total_readable, alpha=0.2, figsize=(10,10), diagonal='kde');
+#plt.suptitle('Profitability vs Cast - Scatter Matrix');
 #scatter plots not much a a use here
 ```
-
-
-![png](output_20_0.png)
-
 
 
 ```python
 #Lets narrow it down to the top 15 actors
 top15 = total_readable.sort_values(by='profit_adj',ascending=False).head(15)
-top15.plot.pie(figsize=(20,20), y='MillionsAsFloat');
-```
-
-
-![png](output_21_0.png)
-
-
-
-```python
-plt.rcdefaults()
-
-ax = plt.subplots
-y_pos = bar_top15['actor']
-x_profit = bar_top15['MillionsAsFloat']
-
-plt.barh(y_pos, x_profit, align='center', color='orange')
-plt.yticks(y_pos)
-
-#ax.set_yticklabels(y_pos)
-plt.xlabel('Profits in Millions')
-plt.title('Who should you have in your next blockbuster?')
-plt.figure()
-plt.show()
+top15.plot.pie(figsize=(20,20), y='MillionsAsFloat', title='Top 15 Most Profitable Actors');
 ```
 
 
 ![png](output_22_0.png)
 
 
+# Make a Blockbuster?
+This the the breakdown of the most profitable actors. If we want to make a highly profitable movie or series of movies these are the top 15 actors to recruit.
 
-    <matplotlib.figure.Figure at 0x7f53687ee4a8>
+
+```python
+plt.rcdefaults()
+bar_top15 = pd.DataFrame(top15.reset_index())
+
+y_pos = bar_top15['actor']
+x_profit = bar_top15['MillionsAsFloat']
+
+plt.barh(y_pos, x_profit, align='center', color='orange')
+plt.xlabel('Profits in Millions')
+plt.title('Who should you have in your next blockbuster?')
+
+plt.show()
+```
+
+
+![png](output_24_0.png)
+
+
+Same plots sorted in a different way. We can see that actors that are in multiple series have the most profits. Using the bar chart to demonstrate the difference of each actor when show Millions of USD profit.
+
+
+```python
+#or a panda plot
+bar_top15.plot.barh(x='actor', y='MillionsAsFloat', legend=False);
+plt.suptitle('Top 15 Actors - Profits by Millions of USD')
+```
+
+
+
+
+    Text(0.5,0.98,'Top 15 Actors - Profits by Millions of USD')
+
+
+
+
+![png](output_26_1.png)
 
 
 # Conclusion for Actor and Profitability
@@ -3192,25 +3273,30 @@ clean_movie_df.info()
     memory usage: 2.3+ MB
 
 
+### Scatter Matrix Plot
+Performing a scatter matrix in order to quickly see if any corealation exists in any of these variables.
+
 
 ```python
 pd.plotting.scatter_matrix(clean_movie_df.iloc[:,[2,3,15,16,17,25,27]], alpha=0.2, figsize=(20,20), diagonal='kde');
+plt.suptitle('Scatter Matrix - Popularity, Budget, Votes, Avg Vote, Adjusted Profit');
 #clean_movie_df.plot(y='popularity', x='profit_adj', kind='scatter');
 ```
 
 
-![png](output_26_0.png)
+![png](output_31_0.png)
 
 
-I would like to see the profitability and popularity a little closer.
+I would like to see the profitability and popularity a little closer. Since my questions revolove around profitability of the movies we want to see if the profit and popularity can be correlated. 
 
 
 ```python
-clean_movie_df.plot.scatter(x='profit_adj', y='popularity');
+clean_movie_df.plot.scatter(x='profit_adj', y='popularity', title='Popularity Rating vs Adjusted Profit');
+
 ```
 
 
-![png](output_28_0.png)
+![png](output_33_0.png)
 
 
 We see the outlying most profitable films are not ranked above 10 or 11, while the highest ranked movies are not the highest in profits. We can tell there there are NO films ranked above 5 that actually lost money. So if you make a badly rated/ranked film you will have the best chance of losing money. Good movies don't lose money, but some are close.
@@ -3218,38 +3304,46 @@ We see the outlying most profitable films are not ranked above 10 or 11, while t
 Lets see the release year compared to the ranking.
 ### Lets look at the release year, popularity, and vote counts
 
-
-```python
-clean_movie_df.plot.scatter(x='release_year', y='popularity');
-```
-
-
-![png](output_30_0.png)
-
+Since low ranked movies also seem to make money lets look at the time at which the film is released.
 
 
 ```python
-clean_movie_df.plot.scatter(x='vote_count', y='popularity');
+clean_movie_df.plot.scatter(x='release_year', y='popularity', title='Popularity Rating vs Year Released');
 ```
 
 
-![png](output_31_0.png)
+![png](output_35_0.png)
 
+
+I can see in this plot that the largetst number of highly popular movies were released after 2000.
+
+Next plot lets see if the number of votes changes the popularity rating.
 
 
 ```python
-clean_movie_df.plot.scatter(y='vote_count', x='release_year');
+clean_movie_df.plot.scatter(x='vote_count', y='popularity', title='Popularity vs Vote Count');
 ```
 
 
-![png](output_32_0.png)
+![png](output_37_0.png)
+
+
+The highest overal ratings tend to have the most votes too.
+
+
+```python
+clean_movie_df.plot.scatter(y='vote_count', x='release_year', title='Vote Count vs Year Released');
+```
+
+
+![png](output_39_0.png)
 
 
 ### What did I learn here?
 I looking close I can see the number of votes heavily weighted the results for movies released post year 2000. It is safe to say people are more likely to rate a movie the just watched via the internet site than to spend to time to review a movie they watched many years ago. 
 With Profits vs Popularity, we can see while there is a strong likelyhood a bad movie will lose money or barely break even, but popular vote doesn't gaurantee the financial success of a movie.
 
-One last thing I wanted to visualize before the final conclusions.
+One last thing I wanted to visualize before the final conclusions. We see below the highest 25 rated movies in the dataset. Below that we list the year released. 
 
 
 ```python
@@ -3258,24 +3352,20 @@ plt.rcdefaults()
 
 y_pos = pop_top25['original_title']
 x_profit = pop_top25['popularity']
-y_release_year = pop_top25['release_year']
-y_ticks = "{0} {1}".format(y_pos, y_release_year)
+
+
 plt.barh(y_pos, x_profit, align='center', color='green')
-plt.yticks(y_pos)
+
 
 plt.xlabel('Popularity Contest')
 plt.title('Recent Movies get better ratings')
-plt.figure()
-plt.show()
+
+plt.show();
 print(pop_top25.iloc[:,[5,18]])
 ```
 
 
-![png](output_34_0.png)
-
-
-
-    <matplotlib.figure.Figure at 0x7f5366a2fd68>
+![png](output_41_0.png)
 
 
                                              original_title  release_year
@@ -3307,11 +3397,16 @@ print(pop_top25.iloc[:,[5,18]])
 
 
 ### Hunch confirmed
-As I look at the top ranked movies there is very few (only 3 movies from before 2000. It would seem movies release before the proliferation of the internet are at a disadvantage. 
+As I look at the top ranked movies there is very few **(only 3 movies from before 2000)**. It would seem movies release before the proliferation of the internet are at a disadvantage. Another thought is too since this data is a little old, all of the box office receipts are not counted for the most recent movies. 
 
 <a id='conclusions'></a>
 ##  Final Conclusions
+
+### Limitations and Future Study
+The data is heavily weighted toward movies that were released since the internet became ubiquitous. Demographic data of the movie reviewers would be revealing for future study. There may be a generational and cultural bias toward movies tailored to a group more likely to write online reviews. Additional data that could be useful is the overall population that attended a certain movie. The options for movies would seem to far exceed the options 40-50 years ago. For a movie to obtain a larger percentage of the overall interest might be harder today than in the past. The dataset would need to expand and include total tickets sold and census population data. We should be able to see how many films were released each year in the current data. We may never be able to tell if old movies are **better** but we can tell how much interest of the overall population is given to a certain movie.
+
+### Summary of Findings
 I have tried to summarize between each section of data analysis. For my final conclusions there are 3 main points gathered from this data.
-First, actors that are in multiple "series" or franchises with several films are more likely to be in the top of the list of most profitable movies. If you can get an actor to stay with a series for multiple hit movies the profits will start to add up. Most notably the $9.3B of adjusted profits for Harrison Ford.
+First, actors that are in multiple "series" or franchises with several films are more likely to be in the top of the list of most profitable movies. If you can get an actor to stay with a series for multiple hit movies the profits will start to add up. Most notably the **$9.3B of adjusted profits for Harrison Ford.**
 Second, popularity does not gaurantee profitability, although the lack of high rating will almost always spell financial dissapointment.
 Last, there is a certain bias for movie released after the ubiquitous use of the internet. So popularity as ranked by internet movies might not be the best scale for movie "quality", then again it is popularity not quality.

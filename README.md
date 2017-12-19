@@ -1,5 +1,4 @@
 
-:
 # Project: Movie Database Analysis
 
 ## Table of Contents
@@ -33,17 +32,17 @@ movie_df.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -355,17 +354,17 @@ clean_movie_df.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -534,17 +533,17 @@ clean_movie_df.sort_values(['profit_adj'], ascending=False)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -2116,17 +2115,17 @@ df_top100_cleaner.sort_values(by='profit_adj',ascending=False)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -2800,17 +2799,17 @@ total_readable.sort_values(by='profit_adj', ascending=False)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
     }
 
     .dataframe tbody tr th {
         vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
@@ -3161,26 +3160,30 @@ print(total_readable.describe())
 
 ### Profitability vs Cast - Which cast members have the most Profitable movies? 
 
+In the plot we hope to see if there are actors that generally act in the most profitable movies?
+
 
 ```python
-pd.plotting.scatter_matrix(total_readable, alpha=0.2, figsize=(10,10), diagonal='kde');
+#This plot is unneeded. Don't render
+##pd.plotting.scatter_matrix
+##pd.plotting.scatter_matrix(total_readable, alpha=0.2, figsize=(10,10), diagonal='kde');
+#plt.suptitle('Profitability vs Cast - Scatter Matrix');
 #scatter plots not much a a use here
 ```
-
-
-![png](output_20_0.png)
-
 
 
 ```python
 #Lets narrow it down to the top 15 actors
 top15 = total_readable.sort_values(by='profit_adj',ascending=False).head(15)
-top15.plot.pie(figsize=(20,20), y='MillionsAsFloat');
+top15.plot.pie(figsize=(20,20), y='MillionsAsFloat', title='Top 15 Most Profitable Actors');
 ```
 
 
-![png](output_21_0.png)
+![png](output_22_0.png)
 
+
+# Make a Blockbuster?
+This the the breakdown of the most profitable actors. If we want to make a highly profitable movie or series of movies these are the top 15 actors to recruit.
 
 
 ```python
@@ -3198,17 +3201,27 @@ plt.show()
 ```
 
 
-![png](output_22_0.png)
+![png](output_24_0.png)
 
+
+Same plots sorted in a different way. We can see that actors that are in multiple series have the most profits. Using the bar chart to demonstrate the difference of each actor when show Millions of USD profit.
 
 
 ```python
 #or a panda plot
 bar_top15.plot.barh(x='actor', y='MillionsAsFloat', legend=False);
+plt.suptitle('Top 15 Actors - Profits by Millions of USD')
 ```
 
 
-![png](output_23_0.png)
+
+
+    Text(0.5,0.98,'Top 15 Actors - Profits by Millions of USD')
+
+
+
+
+![png](output_26_1.png)
 
 
 # Conclusion for Actor and Profitability
@@ -3260,25 +3273,30 @@ clean_movie_df.info()
     memory usage: 2.3+ MB
 
 
+### Scatter Matrix Plot
+Performing a scatter matrix in order to quickly see if any corealation exists in any of these variables.
+
 
 ```python
 pd.plotting.scatter_matrix(clean_movie_df.iloc[:,[2,3,15,16,17,25,27]], alpha=0.2, figsize=(20,20), diagonal='kde');
+plt.suptitle('Scatter Matrix - Popularity, Budget, Votes, Avg Vote, Adjusted Profit');
 #clean_movie_df.plot(y='popularity', x='profit_adj', kind='scatter');
 ```
 
 
-![png](output_27_0.png)
+![png](output_31_0.png)
 
 
-I would like to see the profitability and popularity a little closer.
+I would like to see the profitability and popularity a little closer. Since my questions revolove around profitability of the movies we want to see if the profit and popularity can be correlated. 
 
 
 ```python
-clean_movie_df.plot.scatter(x='profit_adj', y='popularity');
+clean_movie_df.plot.scatter(x='profit_adj', y='popularity', title='Popularity Rating vs Adjusted Profit');
+
 ```
 
 
-![png](output_29_0.png)
+![png](output_33_0.png)
 
 
 We see the outlying most profitable films are not ranked above 10 or 11, while the highest ranked movies are not the highest in profits. We can tell there there are NO films ranked above 5 that actually lost money. So if you make a badly rated/ranked film you will have the best chance of losing money. Good movies don't lose money, but some are close.
@@ -3286,38 +3304,46 @@ We see the outlying most profitable films are not ranked above 10 or 11, while t
 Lets see the release year compared to the ranking.
 ### Lets look at the release year, popularity, and vote counts
 
-
-```python
-clean_movie_df.plot.scatter(x='release_year', y='popularity');
-```
-
-
-![png](output_31_0.png)
-
+Since low ranked movies also seem to make money lets look at the time at which the film is released.
 
 
 ```python
-clean_movie_df.plot.scatter(x='vote_count', y='popularity');
+clean_movie_df.plot.scatter(x='release_year', y='popularity', title='Popularity Rating vs Year Released');
 ```
 
 
-![png](output_32_0.png)
+![png](output_35_0.png)
 
+
+I can see in this plot that the largetst number of highly popular movies were released after 2000.
+
+Next plot lets see if the number of votes changes the popularity rating.
 
 
 ```python
-clean_movie_df.plot.scatter(y='vote_count', x='release_year');
+clean_movie_df.plot.scatter(x='vote_count', y='popularity', title='Popularity vs Vote Count');
 ```
 
 
-![png](output_33_0.png)
+![png](output_37_0.png)
+
+
+The highest overal ratings tend to have the most votes too.
+
+
+```python
+clean_movie_df.plot.scatter(y='vote_count', x='release_year', title='Vote Count vs Year Released');
+```
+
+
+![png](output_39_0.png)
 
 
 ### What did I learn here?
 I looking close I can see the number of votes heavily weighted the results for movies released post year 2000. It is safe to say people are more likely to rate a movie the just watched via the internet site than to spend to time to review a movie they watched many years ago. 
 With Profits vs Popularity, we can see while there is a strong likelyhood a bad movie will lose money or barely break even, but popular vote doesn't gaurantee the financial success of a movie.
 
-One last thing I wanted to visualize before the final conclusions.
+One last thing I wanted to visualize before the final conclusions. We see below the highest 25 rated movies in the dataset. Below that we list the year released. 
 
 
 ```python
@@ -3339,7 +3365,7 @@ print(pop_top25.iloc[:,[5,18]])
 ```
 
 
-![png](output_35_0.png)
+![png](output_41_0.png)
 
 
                                              original_title  release_year
@@ -3371,11 +3397,16 @@ print(pop_top25.iloc[:,[5,18]])
 
 
 ### Hunch confirmed
-As I look at the top ranked movies there is very few (only 3 movies from before 2000. It would seem movies release before the proliferation of the internet are at a disadvantage. Another thought is too since this data is a little old, all of the box office receipts are not counted for the most recent movies. 
+As I look at the top ranked movies there is very few **(only 3 movies from before 2000)**. It would seem movies release before the proliferation of the internet are at a disadvantage. Another thought is too since this data is a little old, all of the box office receipts are not counted for the most recent movies. 
 
 <a id='conclusions'></a>
 ##  Final Conclusions
+
+### Limitations and Future Study
+The data is heavily weighted toward movies that were released since the internet became ubiquitous. Demographic data of the movie reviewers would be revealing for future study. There may be a generational and cultural bias toward movies tailored to a group more likely to write online reviews. Additional data that could be useful is the overall population that attended a certain movie. The options for movies would seem to far exceed the options 40-50 years ago. For a movie to obtain a larger percentage of the overall interest might be harder today than in the past. The dataset would need to expand and include total tickets sold and census population data. We should be able to see how many films were released each year in the current data. We may never be able to tell if old movies are **better** but we can tell how much interest of the overall population is given to a certain movie.
+
+### Summary of Findings
 I have tried to summarize between each section of data analysis. For my final conclusions there are 3 main points gathered from this data.
-First, actors that are in multiple "series" or franchises with several films are more likely to be in the top of the list of most profitable movies. If you can get an actor to stay with a series for multiple hit movies the profits will start to add up. Most notably the $9.3B of adjusted profits for Harrison Ford.
+First, actors that are in multiple "series" or franchises with several films are more likely to be in the top of the list of most profitable movies. If you can get an actor to stay with a series for multiple hit movies the profits will start to add up. Most notably the **$9.3B of adjusted profits for Harrison Ford.**
 Second, popularity does not gaurantee profitability, although the lack of high rating will almost always spell financial dissapointment.
 Last, there is a certain bias for movie released after the ubiquitous use of the internet. So popularity as ranked by internet movies might not be the best scale for movie "quality", then again it is popularity not quality.
